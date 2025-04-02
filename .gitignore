@@ -1,52 +1,89 @@
-# Prerequisites
-*.d
+# === ARCHIVOS DE VISUAL STUDIO ===
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
-
-# Linker output
-*.ilk
-*.map
-*.exp
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
+# === CARPETAS DE COMPILACIÓN ===
+bin/
+obj/
+[Bb]uild/
+artifacts/
 *.pdb
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# === ARCHIVOS TEMPORALES ===
+[Tt]emp/
+*.tmp
+*.cache
+*.log
+*.tlog
+*.csproj.user
+*.bak
+
+# === ARCHIVOS DE CONFIGURACIÓN LOCALES ===
+*.config.user
+*.settings
+*.scc
+*.vssscc
+*.ncb
+*.aps
+*.opendb
+*.sdf
+*.VC.db
+
+# === ARCHIVOS DE PUBLICACIÓN Y DEPURACIÓN ===
+*.publishsettings
+*.pubxml
+PublishScripts/
+*.ilk
+*.manifest
+*.idb
+*.dmp
+
+# === PAQUETES NUGET ===
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+project.lock.json
+project.assets.json
+
+# === ARCHIVOS TEMPORALES DE IIS EXPRESS ===
+iisexpress/
+iisexpress.trace.log
+
+# === LOGS Y RESULTADOS DE PRUEBAS ===
+*.coverage
+*.coveragexml
+*.trx
+TestResults/
+nunit-*.xml
+
+# === ARCHIVOS DE SISTEMA ===
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# === ARCHIVOS GENERADOS POR RIDER / RESHARPER ===
+.idea/
+*.sln.iml
+_ReSharper.Caches/
+
+# === ARCHIVOS DE FRONTEND (si usas herramientas como npm o yarn) ===
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# === ARCHIVOS DE PUBLICACIÓN DE AZURE ===
+app.publish/
+Azure/
+
+# === CARPETAS Y ARCHIVOS DE CACHE ===
+AppData/
+logs/
+Dump/
+error.log
+
