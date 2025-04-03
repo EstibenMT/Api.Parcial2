@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BDExamen2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PartialClass">
+          <Key>
+            <PropertyRef Name="IdClass" />
+          </Key>
+          <Property Name="IdClass" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PartialImage">
+          <Key>
+            <PropertyRef Name="IdImagen" />
+          </Key>
+          <Property Name="IdImagen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreImagen" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="IdClass" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Imagenes_Class">
+          <End Role="PartialClass" Type="Self.PartialClass" Multiplicity="1" />
+          <End Role="PartialImage" Type="Self.PartialImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartialClass">
+              <PropertyRef Name="IdClass" />
+            </Principal>
+            <Dependent Role="PartialImage">
+              <PropertyRef Name="IdClass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDExamen2ModelStoreContainer">
+          <EntitySet Name="PartialClass" EntityType="Self.PartialClass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PartialImage" EntityType="Self.PartialImage" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Imagenes_Class" Association="Self.FK_Imagenes_Class">
+            <End Role="PartialClass" EntitySet="PartialClass" />
+            <End Role="PartialImage" EntitySet="PartialImage" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BDExamen2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PartialClass">
+          <Key>
+            <PropertyRef Name="IdClass" />
+          </Key>
+          <Property Name="IdClass" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PartialImages" Relationship="Self.FK_Imagenes_Class" FromRole="PartialClass" ToRole="PartialImage" />
+        </EntityType>
+        <EntityType Name="PartialImage">
+          <Key>
+            <PropertyRef Name="IdImagen" />
+          </Key>
+          <Property Name="IdImagen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreImagen" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdClass" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PartialClass" Relationship="Self.FK_Imagenes_Class" FromRole="PartialImage" ToRole="PartialClass" />
+        </EntityType>
+        <Association Name="FK_Imagenes_Class">
+          <End Role="PartialClass" Type="Self.PartialClass" Multiplicity="1" />
+          <End Role="PartialImage" Type="Self.PartialImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartialClass">
+              <PropertyRef Name="IdClass" />
+            </Principal>
+            <Dependent Role="PartialImage">
+              <PropertyRef Name="IdClass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDExamen2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PartialClasses" EntityType="Self.PartialClass" />
+          <EntitySet Name="PartialImages" EntityType="Self.PartialImage" />
+          <AssociationSet Name="FK_Imagenes_Class" Association="Self.FK_Imagenes_Class">
+            <End Role="PartialClass" EntitySet="PartialClasses" />
+            <End Role="PartialImage" EntitySet="PartialImages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BDExamen2ModelStoreContainer" CdmEntityContainer="BDExamen2Entities">
+          <EntitySetMapping Name="PartialClasses">
+            <EntityTypeMapping TypeName="BDExamen2Model.PartialClass">
+              <MappingFragment StoreEntitySet="PartialClass">
+                <ScalarProperty Name="IdClass" ColumnName="IdClass" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartialImages">
+            <EntityTypeMapping TypeName="BDExamen2Model.PartialImage">
+              <MappingFragment StoreEntitySet="PartialImage">
+                <ScalarProperty Name="IdImagen" ColumnName="IdImagen" />
+                <ScalarProperty Name="NombreImagen" ColumnName="NombreImagen" />
+                <ScalarProperty Name="IdClass" ColumnName="IdClass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
