@@ -5,13 +5,13 @@ using System.Web.Http;
 
 namespace Api.Parcial2.Controllers
 {
-    [RoutePrefix("api/UploadFiles")]
-    public class UploadFilesController : ApiController
+    [RoutePrefix("api/FotoPesaje")]
+    public class FotoPesajeController : ApiController
     {
         [HttpPost]
         public async Task<HttpResponseMessage> CargarArchivo(HttpRequestMessage request, string Datos, string Proceso)
         {
-            clsUpload upload = new clsUpload();
+            clsFotoPesaje upload = new clsFotoPesaje();
             upload.Datos = Datos;
             upload.Proceso = Proceso;
             upload.request = request;
@@ -20,13 +20,13 @@ namespace Api.Parcial2.Controllers
         [HttpGet]
         public HttpResponseMessage ConsultarArchivo(string NombreImagen)
         {
-            clsUpload upload = new clsUpload();
+            clsFotoPesaje upload = new clsFotoPesaje();
             return upload.DescargarArchivo(NombreImagen);
         }
         [HttpPut]
         public async Task<HttpResponseMessage> ActualizarArchivo(HttpRequestMessage request)
         {
-            clsUpload upload = new clsUpload();
+            clsFotoPesaje upload = new clsFotoPesaje();
             upload.request = request;
             return await upload.GrabarArchivo(true);
         }
@@ -34,7 +34,7 @@ namespace Api.Parcial2.Controllers
         [HttpDelete]
         public HttpResponseMessage EliminarArchivo(string NombreImagen)
         {
-            clsUpload upload = new clsUpload();
+            clsFotoPesaje upload = new clsFotoPesaje();
             return upload.EliminarArchivo(NombreImagen);
         }
     }
