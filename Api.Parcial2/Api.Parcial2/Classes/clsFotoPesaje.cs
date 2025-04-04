@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace Api.Parcial2.Classes
 {
-	public class clsUpload
+	public class clsFotoPesaje
 	{
         private BDExamen2Entities db = new BDExamen2Entities();
         public string Datos { get; set; }
@@ -29,7 +29,7 @@ namespace Api.Parcial2.Classes
             try
             {
                 bool Existe = false;
-                //Lee el contenido de los archivos
+
                 await request.Content.ReadAsMultipartAsync(provider);
                 if (provider.FileData.Count > 0)
                 {
@@ -48,29 +48,24 @@ namespace Api.Parcial2.Classes
                         if (File.Exists(Path.Combine(root, fileName)))
                         {
                             if (Actualizar)
-                            {
-                                //El archivo ya existe en el servidor, no se va a cargar, se va a eliminar el temporal y se devolverá un error
-                                File.Delete(Path.Combine(root, fileName));
-                                //actualiza el nombre del primer archivo
+                            {                               
+                                File.Delete(Path.Combine(root, fileName));                                
                                 File.Move(file.LocalFileName, Path.Combine(root, fileName));
                                 return request.CreateResponse(System.Net.HttpStatusCode.OK, "Se actualizó la imagen");
                             }
                             else
                             {
-                                //El archivo ya existe en el servidor, no se va a cargar, se va a eliminar el temporal y se devolverá un error
+                                
                                 File.Delete(Path.Combine(root, file.LocalFileName));
                                 Existe = true;
-                            }
-                            //return request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, "El archivo ya existe");
+                            }                            
                         }
                         else
                         {
                             if (!Actualizar)
                             {
-                                Existe = false;
-                                //Agrego en una lista el nombre de los archivos que se cargaron 
-                                Archivos.Add(fileName);
-                                //Renombra el archivo temporal
+                                Existe = false;                               
+                                Archivos.Add(fileName);                                
                                 File.Move(file.LocalFileName, Path.Combine(root, fileName));
                             }
                             else
@@ -80,10 +75,8 @@ namespace Api.Parcial2.Classes
                         }
                     }
                     if (!Existe)
-                    {
-                        //Se genera el proceso de gestión en la base de datos
-                        string RptaBD = ProcesarBD();
-                        //Termina el ciclo, responde que se cargó el archivo correctamente
+                    {                        
+                        string RptaBD = ProcesarBD();                        
                         return request.CreateResponse(System.Net.HttpStatusCode.OK, "Se cargaron los archivos en el servidor, " + RptaBD);
                     }
                     else
@@ -142,10 +135,10 @@ namespace Api.Parcial2.Classes
                 string Archivo = Path.Combine(Ruta, Imagen);
                 if (File.Exists(Archivo))
                 {
-                    PartialImage pImage = db.PartialImages.FirstOrDefault(x => x.NombreImagen == Imagen);
+                    FotoPesaje pImage = db.FotoPesajes.FirstOrDefault(x => x.ImagenVehiculo == Imagen);
                     if (pImage != null)
                     {
-                        db.PartialImages.Remove(pImage);
+                        db.FotoPesajes.Remove(pImage);
                         db.SaveChanges();
                         File.Delete(Archivo);
                         return new HttpResponseMessage(HttpStatusCode.OK)
@@ -181,9 +174,9 @@ namespace Api.Parcial2.Classes
         {
             switch (Proceso.ToUpper())
             {
-                case "PARTIALCLASS":
-                    clsPartialClass producto = new clsPartialClass();
-                    return producto.GrabarImagenProducto(Convert.ToInt32(Datos), Archivos);
+                case "PESAJE":
+                    clsPesaje pesaje = new clsPesaje();
+                    return pesaje.GrabarImagenPesaje(Convert.ToInt32(Datos), Archivos);
                 default:
                     return "No se ha definido el proceso en la base de datos";
             }

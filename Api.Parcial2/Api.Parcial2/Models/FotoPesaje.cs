@@ -9,15 +9,17 @@
 
 namespace Api.Parcial2.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
-    public partial class PartialImage
+    public partial class FotoPesaje
     {
-        public int IdImagen { get; set; }
-        public string NombreImagen { get; set; }
-        public int IdClass { get; set; }
-    
-        public virtual PartialClass PartialClass { get; set; }
+        public int idFotoPesaje { get; set; }
+        public string ImagenVehiculo { get; set; }
+        public int idPesaje { get; set; }
+
+        [JsonIgnore]
+        public virtual Pesaje Pesaje { get; set; }
     }
 }

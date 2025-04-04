@@ -25,7 +25,9 @@ namespace Api.Parcial2.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<PartialClass> PartialClasses { get; set; }
-        public virtual DbSet<PartialImage> PartialImages { get; set; }
+        public virtual DbSet<Camion> Camions { get; set; }
+        public virtual DbSet<FotoPesaje> FotoPesajes { get; set; }
+        public virtual DbSet<Pesaje> Pesajes { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }
