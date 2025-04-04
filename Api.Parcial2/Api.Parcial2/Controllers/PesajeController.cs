@@ -29,6 +29,7 @@ namespace Api.Parcial2.Controllers
         }
 
         [HttpGet]
+        [Route("pesaje")]
         public async Task<HttpResponseMessage> ConsultarXIdPesaje(int id)
         { 
             clsPesaje clsP = new clsPesaje();
