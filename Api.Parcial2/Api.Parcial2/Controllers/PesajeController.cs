@@ -27,5 +27,12 @@ namespace Api.Parcial2.Controllers
             clsP.pesaje = pesaje;
             return await clsP.Insertar();
         }
+
+        [HttpGet]
+        public async Task<HttpResponseMessage> ConsultarXIdPesaje(int id)
+        { 
+            clsPesaje clsP = new clsPesaje();
+            return await clsP.ListarImagenes(id);
+        }
     }
 }

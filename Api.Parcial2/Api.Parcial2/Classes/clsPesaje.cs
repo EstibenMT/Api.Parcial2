@@ -119,5 +119,38 @@ namespace Api.Parcial2.Classes
                 return "Error: " + ex.Message;
             }
         }
+
+        public async Task<HttpResponseMessage> ListarImagenes(int id)
+        {
+            try
+            {
+                var query = await (from P in db.Set<Pesaje>()
+                                   join I in db.Set<FotoPesaje>() on P.id equals I.idPesaje
+                                   where P.id == id
+                                   orderby I.ImagenVehiculo
+                                   select new
+                                   {
+                                       IdPesaje = P.id,
+                                       Placa = P.PlacaCamion,
+                                       IdImagen = I.idFotoPesaje,
+                                       Imagen = I.ImagenVehiculo
+                                   }).ToListAsync();
+
+                if (query == null)
+                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+
+                return new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(JsonConvert.SerializeObject(query), Encoding.UTF8, "application/json")
+                };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                {
+                    Content = new StringContent($"Error: " + ex.Message)
+                };
+            }
+        }
     }
 }
