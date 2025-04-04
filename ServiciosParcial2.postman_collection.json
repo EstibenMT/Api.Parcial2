@@ -167,11 +167,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url_serv}}{{api}}{{serv_pesaje}}/?id=1",
+							"raw": "{{base_url_serv}}{{api}}{{serv_pesaje}}/pesaje/?id=1",
 							"host": [
 								"{{base_url_serv}}{{api}}{{serv_pesaje}}"
 							],
 							"path": [
+								"pesaje",
 								""
 							],
 							"query": [
