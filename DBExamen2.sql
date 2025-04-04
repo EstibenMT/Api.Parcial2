@@ -9,35 +9,65 @@ BEGIN
 END
 GO
 
--- Crear la base de datos
 CREATE DATABASE BDExamen2;
 GO
 
--- Usar la base de datos recién creada
-USE BDExamen2;
+USE [BDExamen2]
 GO
-
--- Crear la tabla Class
-CREATE TABLE PartialClass (
-    IdClass INT IDENTITY(1,1) PRIMARY KEY,
-    Name NVARCHAR(100) NOT NULL
-);
+/****** Object:  Table [dbo].[Camion]    Script Date: 4/3/2025 5:24:52 PM ******/
+SET ANSI_NULLS ON
 GO
-
--- Crear la tabla Imagenes con una clave foránea a Class
-CREATE TABLE PartialImage (
-    IdImagen INT IDENTITY(1,1) PRIMARY KEY,
-    NombreImagen NVARCHAR(255) NOT NULL,
-    IdClass INT NOT NULL,
-    CONSTRAINT FK_Imagenes_Class FOREIGN KEY (idClass) REFERENCES PartialClass(IdClass)
-);
+SET QUOTED_IDENTIFIER ON
 GO
-
-
-INSERT INTO PartialClass (Name)  
-VALUES 
-	('Matemáticas'),
-    ('Historia'),  
-    ('Ciencias'),  
-    ('Lengua Española'),  
-    ('Física'); 
+CREATE TABLE [dbo].[Camion](
+	[Placa] [varchar](10) NOT NULL,
+	[Marca] [varchar](50) NOT NULL,
+	[NumeroEjes] [int] NOT NULL,
+ CONSTRAINT [PK_Camion] PRIMARY KEY CLUSTERED 
+(
+	[Placa] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[FotoPesaje]    Script Date: 4/3/2025 5:24:52 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[FotoPesaje](
+	[idFotoPesaje] [int] IDENTITY(1,1) NOT NULL,
+	[ImagenVehiculo] [varchar](50) NOT NULL,
+	[idPesaje] [int] NOT NULL,
+ CONSTRAINT [PK_FotoPesaje] PRIMARY KEY CLUSTERED 
+(
+	[idFotoPesaje] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Pesaje]    Script Date: 4/3/2025 5:24:52 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Pesaje](
+	[id] [int] NOT NULL,
+	[FechaPesaje] [date] NOT NULL,
+	[PlacaCamion] [varchar](10) NOT NULL,
+	[Peso] [real] NOT NULL,
+	[Estacion] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Pesaje] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[FotoPesaje]  WITH CHECK ADD  CONSTRAINT [FK_FotoPesaje_Pesaje] FOREIGN KEY([idPesaje])
+REFERENCES [dbo].[Pesaje] ([id])
+GO
+ALTER TABLE [dbo].[FotoPesaje] CHECK CONSTRAINT [FK_FotoPesaje_Pesaje]
+GO
+ALTER TABLE [dbo].[Pesaje]  WITH CHECK ADD  CONSTRAINT [FK_Pesaje_Camion] FOREIGN KEY([PlacaCamion])
+REFERENCES [dbo].[Camion] ([Placa])
+GO
+ALTER TABLE [dbo].[Pesaje] CHECK CONSTRAINT [FK_Pesaje_Camion]
+GO

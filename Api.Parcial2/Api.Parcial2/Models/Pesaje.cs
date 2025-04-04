@@ -9,21 +9,27 @@
 
 namespace Api.Parcial2.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
-    public partial class PartialClass
+    public partial class Pesaje
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PartialClass()
+        public Pesaje()
         {
-            this.PartialImages = new HashSet<PartialImage>();
+            this.FotoPesajes = new HashSet<FotoPesaje>();
         }
     
-        public int IdClass { get; set; }
-        public string Name { get; set; }
-    
+        public int id { get; set; }
+        public System.DateTime FechaPesaje { get; set; }
+        public string PlacaCamion { get; set; }
+        public float Peso { get; set; }
+        public string Estacion { get; set; }
+
+        public virtual Camion Camion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartialImage> PartialImages { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<FotoPesaje> FotoPesajes { get; set; }
     }
 }
